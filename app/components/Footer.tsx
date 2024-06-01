@@ -5,7 +5,7 @@ const Footer = ({
 }: {
   placeHolderText?: string;
 }) => {
-  return <p className="py-7 font-bold text-xs text-white">{placeHolderText}</p>;
+  return <p className="font-bold text-xs text-white">{placeHolderText}</p>;
 };
 
 export default Footer;
