@@ -1,0 +1,57 @@
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  user-select: none;
+  position: relative;
+  color: white;
+  height: 2rem;
+  vertical-align: middle;
+  min-width: 2.5rem;
+  white-space: nowrap;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 2px 2px 0px 0px #3c2b59;
+  background-color: #8a3dec;
+  border: 1px solid #3c2b59;
+}
+
+.btn:hover,
+.btn:focus {
+  box-shadow: 2px 2px 0px 0px #ffcd60;
+}
+
+.input {
+  height: 2rem;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  border: 1.5px solid #3c2b5950;
+  box-shadow: 2px 2px 0px 0px #f2eef7;
+  padding-left: 12px;
+}
+
+.input:focus {
+  border: 1.5px solid #8a3dec;
+  box-shadow: 2px 2px 0px 0px #8a3dec;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  background-color: #d1d5db;
+  height: 2px;
+  width: 100%;
+}
+
+.divider::after {
+  margin-left: 1rem;
+}
+
+.divider::before {
+  margin-right: 1rem;
+}
