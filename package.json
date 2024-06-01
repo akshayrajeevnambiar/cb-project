@@ -11,6 +11,8 @@
   "dependencies": {
     "@clerk/clerk-react": "^5.2.2",
     "@clerk/nextjs": "^4.29.3",
+    "@preline/toggle-password": "^2.3.0",
+    "jotai": "^2.8.2",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18"

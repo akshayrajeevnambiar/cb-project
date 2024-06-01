@@ -2,18 +2,26 @@ import Header from "./Header";
 import "@/app/dashboard.css";
 import Footer from "./Footer";
 
+import {
+  usernameAtom,
+  emailAtom,
+  passwordAtom,
+  errorAtom,
+} from "@/app/atoms/authAtoms";
+
+import { useAtom } from "jotai";
+
 interface SignUpFormProps {
-  signUpWithEmail: ({
-    emailAddress,
-    password,
-  }: {
-    emailAddress: string;
-    password: string;
-  }) => void;
-  clerkError: string;
+  signUpWithEmail: () => void;
 }
 
-const SignupForm = ({ signUpWithEmail, clerkError }: SignUpFormProps) => {
+const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
+  const [username, setUserName] = useAtom(usernameAtom);
+  const [emailAddress, setEmailAddress] = useAtom(emailAtom);
+  const [password, setPassword] = useAtom(passwordAtom);
+
+  const [clerkError] = useAtom(errorAtom);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Header placeHolderText="Create Your Account" />
@@ -22,24 +30,26 @@ const SignupForm = ({ signUpWithEmail, clerkError }: SignUpFormProps) => {
           onSubmit={(e) => {
             e.preventDefault();
             const target = e.target as typeof e.target & {
+              userName: { value: string };
               email: { value: string };
               password: { value: string };
             };
-            const email = target.email.value;
-            const password = target.password.value;
-            signUpWithEmail({ emailAddress: email, password: password });
+            setEmailAddress(target.email.value);
+            setPassword(target.password.value);
+            setUserName(target.userName.value);
+            signUpWithEmail();
           }}
         >
-          <label className="mb-1 text-sm font-bold">Username...</label>
+          <label className="mb-1 text-sm font-bold">Username:</label>
           <input
-            name="uername"
+            name="userName"
             className="mb-4 text-sm w-full rounded-md input"
             placeholder="Username..."
             type="text"
             required
           />
 
-          <label className="mb-1 text-sm font-bold">Email Address...</label>
+          <label className="mb-1 text-sm font-bold">Email Address:</label>
           <input
             name="email"
             className="mb-4 text-sm w-full rounded-md input"
@@ -48,7 +58,7 @@ const SignupForm = ({ signUpWithEmail, clerkError }: SignUpFormProps) => {
             required
           />
 
-          <label className="mb-1 text-sm font-bold">Password...</label>
+          <label className="mb-1 text-sm font-bold">Password:</label>
           <input
             name="password"
             className="mb-4 text-sm w-full rounded-md input"
@@ -57,7 +67,7 @@ const SignupForm = ({ signUpWithEmail, clerkError }: SignUpFormProps) => {
             required
           />
 
-          <label className="mb-1 text-sm font-bold">Re-type Password...</label>
+          <label className="mb-1 text-sm font-bold">Re-type Password:</label>
           <input
             name="re-password"
             className="mb-4 text-sm w-full rounded-md input"
@@ -73,6 +83,7 @@ const SignupForm = ({ signUpWithEmail, clerkError }: SignUpFormProps) => {
               </p>
             )}
           </h2>
+
           <button
             className="mb-4 p-4 w-full text-sm items-center font-bold text-white rounded-md btn"
             type="submit"
@@ -81,7 +92,7 @@ const SignupForm = ({ signUpWithEmail, clerkError }: SignUpFormProps) => {
           </button>
         </form>
         <p className="text-sm text-center text-black font-medium">
-          Create Mini Courses, Bridges Pages & much more.
+          * Create Mini Courses, Bridges Pages & much more.
           <a
             className="ml-1 text-sm font-semibold text-indigo-500"
             href="/sign-in"

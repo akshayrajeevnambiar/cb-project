@@ -1,36 +1,45 @@
 "use client";
-import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSignUp } from "@clerk/nextjs";
 import SignupForm from "@/app/components/SignupForm";
 import VerifyForm from "@/app/components/VerifyForm";
 
-const Signup = () => {
-  const {isLoaded, signUp, setActive} = useSignUp();
-  const [clerkError, setClerkError] = useState("");
-  const router = useRouter();
-  const [verifying, setVerifying] = useState(false);
-  const [code, setCode] = useState("");
+import {
+  usernameAtom,
+  emailAtom,
+  passwordAtom,
+  emailCode,
+  errorAtom,
+  isVerifiedAtom,
+} from "@/app/atoms/authAtoms";
 
-  const signUpWithEmail = async ({
-    emailAddress,
-    password,
-  }: {
-    emailAddress: string;
-    password: string;
-  }) => {
+import { useAtom } from "jotai";
+
+const Signup = () => {
+  const { isLoaded, signUp, setActive } = useSignUp();
+  const [clerkError, setClerkError] = useAtom(errorAtom);
+  const router = useRouter();
+  const [verifying, setVerifying] = useAtom(isVerifiedAtom);
+  const [code, setCode] = useAtom(emailCode);
+
+  const [username] = useAtom(usernameAtom);
+  const [emailAddress] = useAtom(emailAtom);
+  const [password] = useAtom(passwordAtom);
+
+  const signUpWithEmail = async () => {
     if (!isLoaded) {
       return;
     }
 
     try {
       await signUp.create({
+        username,
         emailAddress,
         password,
       });
       // send the email.
-      await signUp.prepareEmailAddressVerification({strategy: "email_code"});
+      await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
 
       // change the UI to our pending section.
       setVerifying(true);
@@ -52,7 +61,7 @@ const Signup = () => {
       }
 
       if (completeSignUp.status === "complete") {
-        await setActive({session: completeSignUp.createdSessionId});
+        await setActive({ session: completeSignUp.createdSessionId });
         router.push("/");
       }
     } catch (err) {
@@ -62,13 +71,13 @@ const Signup = () => {
 
   return (
     <>
-      {!verifying ? 
-        (<SignupForm signUpWithEmail={signUpWithEmail} clerkError={clerkError} />) : 
-        (<VerifyForm handleVerify={handleVerify} code={code} setCode={setCode} />)
-      }
+      {!verifying ? (
+        <SignupForm signUpWithEmail={signUpWithEmail} />
+      ) : (
+        <VerifyForm handleVerify={handleVerify} code={code} setCode={setCode} />
+      )}
     </>
-  )
-      
+  );
 };
 
 export default Signup;
