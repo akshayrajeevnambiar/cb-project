@@ -4,15 +4,10 @@ import { useRouter } from "next/navigation";
 import { useSignUp } from "@clerk/nextjs";
 import SignupForm from "@/app/components/SignupForm";
 import VerifyForm from "@/app/components/VerifyForm";
+import bcrypt from "bcryptjs";
+import { PasswordHasher } from "@/app/util/PasswordHasher";
 
-import {
-  usernameAtom,
-  emailAtom,
-  passwordAtom,
-  emailCode,
-  errorAtom,
-  isVerifiedAtom,
-} from "@/app/atoms/authAtoms";
+import { emailCode, errorAtom, isVerifiedAtom } from "@/app/atoms/authAtoms";
 
 import { useAtom } from "jotai";
 
@@ -37,10 +32,13 @@ const Signup = () => {
     }
 
     try {
+      const hashedPassword = PasswordHasher(password);
+      console.log("hashedPassword - " + hashedPassword);
+
       await signUp.create({
         username,
         emailAddress,
-        password,
+        password: hashedPassword,
       });
       // send the email.
       await signUp.prepareEmailAddressVerification({ strategy: "email_code" });

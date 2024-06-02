@@ -4,6 +4,8 @@ import { useSignIn } from "@clerk/nextjs";
 import SigninForm from "@/app/components/SigninForm";
 import { useAtom } from "jotai";
 import { errorAtom } from "@/app/atoms/authAtoms";
+import bcrypt from "bcryptjs";
+import { PasswordHasher } from "@/app/util/PasswordHasher";
 
 const Signin = () => {
   const { isLoaded, signIn, setActive } = useSignIn();
@@ -22,9 +24,12 @@ const Signin = () => {
     }
 
     try {
+      const hashedPassword = PasswordHasher(password);
+      console.log("hashedPassword - " + hashedPassword);
+
       const result = await signIn.create({
         identifier: emailAddress,
-        password,
+        password: hashedPassword,
       });
       if (result.status === "complete") {
         console.log(result);

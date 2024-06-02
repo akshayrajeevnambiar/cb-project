@@ -1,7 +1,6 @@
 import Header from "./Header";
 import "@/app/dashboard.css";
 import Footer from "./Footer";
-import { ValidatePassword } from "@/app/utility functions/PasswordValidator";
 
 import {
   usernameAtom,
