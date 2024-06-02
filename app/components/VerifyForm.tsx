@@ -1,39 +1,40 @@
-import { FormEvent } from "react"
+import { FormEvent } from "react";
+import { emailCode } from "@/app/atoms/authAtoms";
+import { useAtom } from "jotai";
+import Header from "./Header";
+import Footer from "./Footer";
 
 interface VerifyFormProps {
-    handleVerify: (e: FormEvent) => void
-    code: string
-    setCode: (value: string) => void
+  handleVerify: (e: FormEvent) => void;
 }
 
-const VerifyForm = ({handleVerify, code, setCode}: VerifyFormProps) => {
-  return (
-    <div className="flex justify-center mt-12 grid justify-items-center md:mt-20">
-      <div className="h-auto bg-blue-700 rounded-xl md:rounded-3xl w-80 md:w-96">
-        <div className="p-6 md:p-8">
-          <h1 className="mb-6 text-3xl font-light text-white">
-            Verification Code
-          </h1>
-          <form onSubmit={handleVerify}>
-            <input
-              value={code}
-              className="block w-full pb-4 pl-4 mb-3 text-sm font-light bg-transparent border-0 border-b-2 h-37 border-blue-900 text-white caret-slate-700 focus:border-white"
-              id="code"
-              name="code"
-              onChange={(e) => setCode(e.target.value)}
-            />
+const VerifyForm = ({ handleVerify }: VerifyFormProps) => {
+  const [code, setCode] = useAtom(emailCode);
 
-            <button
-              className="w-full h-12 mb-6 text-sm font-light text-white hover:text-blue-900 hover:bg-white bg-slate-700 rounded-md"
-              type="submit"
-            >
-              Complete sign up
-            </button>
-          </form>
-        </div>
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <Header placeHolderText="Verification Code" />
+      <div className="my-3 flex flex-col p-8 bg-white w-[26.25rem] rounded-md border-black border-[1.5px]">
+        <form onSubmit={handleVerify}>
+          <input
+            value={code}
+            className="mb-4 text-sm w-full rounded-md input"
+            id="code"
+            name="code"
+            onChange={(e) => setCode(e.target.value)}
+          />
+
+          <button
+            className="mb-4 p-4 w-full text-sm items-center font-bold text-white rounded-md btn"
+            type="submit"
+          >
+            Complete sign up
+          </button>
+        </form>
       </div>
+      <Footer />
     </div>
   );
-}
+};
 
-export default VerifyForm
+export default VerifyForm;

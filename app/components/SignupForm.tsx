@@ -12,7 +12,15 @@ import {
 import { useAtom } from "jotai";
 
 interface SignUpFormProps {
-  signUpWithEmail: () => void;
+  signUpWithEmail: ({
+    username,
+    emailAddress,
+    password,
+  }: {
+    username: string;
+    emailAddress: string;
+    password: string;
+  }) => void;
 }
 
 const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
@@ -34,10 +42,19 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
               email: { value: string };
               password: { value: string };
             };
-            setEmailAddress(target.email.value);
-            setPassword(target.password.value);
-            setUserName(target.userName.value);
-            signUpWithEmail();
+
+            const userName = target.userName.value;
+            const email = target.email.value;
+            const passWord = target.password.value;
+
+            setEmailAddress(email);
+            setPassword(passWord);
+            setUserName(userName);
+            signUpWithEmail({
+              username: userName,
+              emailAddress: email,
+              password: passWord,
+            });
           }}
         >
           <label className="mb-1 text-sm font-bold">Username:</label>

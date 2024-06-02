@@ -23,11 +23,15 @@ const Signup = () => {
   const [verifying, setVerifying] = useAtom(isVerifiedAtom);
   const [code, setCode] = useAtom(emailCode);
 
-  const [username] = useAtom(usernameAtom);
-  const [emailAddress] = useAtom(emailAtom);
-  const [password] = useAtom(passwordAtom);
-
-  const signUpWithEmail = async () => {
+  const signUpWithEmail = async ({
+    username,
+    emailAddress,
+    password,
+  }: {
+    username: string;
+    emailAddress: string;
+    password: string;
+  }) => {
     if (!isLoaded) {
       return;
     }
@@ -74,7 +78,7 @@ const Signup = () => {
       {!verifying ? (
         <SignupForm signUpWithEmail={signUpWithEmail} />
       ) : (
-        <VerifyForm handleVerify={handleVerify} code={code} setCode={setCode} />
+        <VerifyForm handleVerify={handleVerify} />
       )}
     </>
   );

@@ -3,10 +3,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSignIn } from "@clerk/nextjs";
 import SigninForm from "@/app/components/SigninForm";
+import { useAtom } from "jotai";
+import { errorAtom } from "@/app/atoms/authAtoms";
 
 const Signin = () => {
   const { isLoaded, signIn, setActive } = useSignIn();
-  const [clerkError, setClerkError] = useState("");
+  const [clerkError, setClerkError] = useAtom(errorAtom);
   const router = useRouter();
 
   const signInWithEmail = async ({
@@ -38,9 +40,7 @@ const Signin = () => {
     }
   };
 
-  return (
-    <SigninForm signInWithEmail={signInWithEmail} clerkError={clerkError} />
-  );
+  return <SigninForm signInWithEmail={signInWithEmail} />;
 };
 
 export default Signin;

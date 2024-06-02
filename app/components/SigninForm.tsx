@@ -2,6 +2,8 @@ import Link from "next/link";
 import Header from "./Header";
 import Footer from "./Footer";
 import "@/app/dashboard.css";
+import { useAtom } from "jotai";
+import { errorAtom } from "../atoms/authAtoms";
 
 interface SignInFormProps {
   signInWithEmail: ({
@@ -11,10 +13,11 @@ interface SignInFormProps {
     emailAddress: string;
     password: string;
   }) => void;
-  clerkError: string;
 }
 
-const SigninForm = ({ signInWithEmail, clerkError }: SignInFormProps) => {
+const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
+  const [clerkError] = useAtom(errorAtom);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Header placeHolderText="Welcome Back!" />
