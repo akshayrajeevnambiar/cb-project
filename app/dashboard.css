@@ -47,6 +47,23 @@
   padding-left: 0;
 }
 
+.input-pass {
+  height: 2rem;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  border: 1.5px solid #3c2b5950;
+  padding-left: 12px;
+}
+
+.password {
+  box-shadow: 2px 2px 0px 0px #f2eef7;
+}
+
+.password-focus {
+  border: 1.5px solid #8a3dec;
+  box-shadow: 2px 2px 0px 0px #8a3dec;
+}
+
 .divider {
   display: flex;
   align-items: center;

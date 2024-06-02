@@ -1,16 +1,19 @@
 import Header from "./Header";
 import "@/app/dashboard.css";
 import Footer from "./Footer";
+import { ValidatePassword } from "@/app/utility functions/PasswordValidator";
 
 import {
   usernameAtom,
   emailAtom,
   passwordAtom,
   errorAtom,
+  passwordStrengthAtom,
 } from "@/app/atoms/authAtoms";
 
 import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import PasswordStrengthMeter from "./PasswordStrengthComponent";
 
 interface SignUpFormProps {
   signUpWithEmail: ({
@@ -28,8 +31,11 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
   const [username, setUserName] = useAtom(usernameAtom);
   const [emailAddress, setEmailAddress] = useAtom(emailAtom);
   const [password, setPassword] = useAtom(passwordAtom);
-
   const [clerkError, setClerkError] = useAtom(errorAtom);
+  const [passwordStrength, setPasswordStrength] = useAtom(passwordStrengthAtom);
+
+  const passWithStrength = document.getElementById("password-container");
+  const strengthMeter = document.getElementById("strength-text");
 
   useEffect(() => {
     const userName = document.getElementById("userName");
@@ -73,11 +79,6 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
             const email = target.email;
             const passWord = target.password;
             const rePassword = target.rePassword;
-
-            if (!userName || !email || !passWord || !rePassword) {
-              console.error("All fields are required");
-              return;
-            }
 
             if (passWord.value !== rePassword.value) {
               (passWord as HTMLInputElement).classList.add("input-error");
@@ -125,19 +126,39 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
             required
           />
 
-          <label className="mb-1 text-sm font-bold">Password:</label>
-          <input
-            name="password"
-            className="mb-4 text-sm w-full rounded-md input"
-            placeholder="Password..."
-            id="password"
-            type="password"
-            onChange={(e) => {
-              (e.target as HTMLInputElement).classList.remove("input-error");
-              setClerkError("");
-            }}
-            required
-          />
+          <label className="mb-1 text-sm font-bold">
+            Password:{" "}
+            <span
+              id="strength-text"
+              className="text-sm font-medium italic hidden"
+            >
+              ({passwordStrength})
+            </span>
+          </label>
+          <div id="password-container" className="mb-4 rounded-md password">
+            <input
+              name="password"
+              className="text-sm w-full rounded-t-md mb-0 input-pass"
+              placeholder="Password..."
+              id="password"
+              type="password"
+              onFocus={(e) => {
+                passWithStrength?.classList.add("password-focus");
+              }}
+              onBlur={(e) => {
+                passWithStrength?.classList.remove("password-focus");
+                strengthMeter?.classList.add("hidden");
+              }}
+              onChange={(e) => {
+                (e.target as HTMLInputElement).classList.remove("input-error");
+                strengthMeter?.classList.remove("hidden");
+                setClerkError("");
+                setPassword(e.target.value);
+              }}
+              required
+            />
+            <PasswordStrengthMeter password={password} />
+          </div>
 
           <label className="mb-1 text-sm font-bold">Re-type Password:</label>
           <input
