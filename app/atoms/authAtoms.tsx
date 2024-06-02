@@ -6,3 +6,4 @@ export const passwordAtom = atom<string>("");
 export const errorAtom = atom<string>("");
 export const emailCode = atom<string>("");
 export const isVerifiedAtom = atom<boolean>(false);
+export const currIndexAtom = atom<number>(0);

@@ -20,7 +20,8 @@
   box-shadow: 2px 2px 0px 0px #ffcd60;
 }
 
-.input {
+.input,
+.input-otp {
   height: 2rem;
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -29,9 +30,16 @@
   padding-left: 12px;
 }
 
-.input:focus {
+.input:focus,
+.input-otp:focus {
   border: 1.5px solid #8a3dec;
   box-shadow: 2px 2px 0px 0px #8a3dec;
+}
+
+.input-otp {
+  height: 3rem;
+  text-align: center;
+  padding-left: 0;
 }
 
 .divider {
