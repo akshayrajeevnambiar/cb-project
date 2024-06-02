@@ -4,9 +4,14 @@ import Link from "next/link";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "@/app/dashboard.css";
+import { useAtom } from "jotai";
+import { emailAtom } from "./atoms/authAtoms";
+import { useState } from "react";
 
 export default function Dashboard() {
   const { isSignedIn, user, isLoaded } = useUser();
+  const [email, setEmail] = useAtom(emailAtom);
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -20,14 +25,30 @@ export default function Dashboard() {
               <input
                 type="email"
                 placeholder="Email..."
+                id="email"
                 className="mb-4 text-sm w-full rounded-md input"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  e.target.value === ""
+                    ? setIsDisabled(true)
+                    : setIsDisabled(false);
+                }}
               />
-              <Link
-                href="/sign-in"
-                className="p-4 w-full text-sm items-center font-bold text-white rounded-md btn"
-              >
-                Login
-              </Link>
+              {isDisabled ? (
+                <button
+                  className="p-4 w-full text-sm items-center font-bold text-white rounded-md btn-disabled"
+                  disabled
+                >
+                  Login
+                </button>
+              ) : (
+                <Link
+                  href="/sign-in"
+                  className="p-4 w-full text-sm items-center font-bold text-white rounded-md btn"
+                >
+                  Login
+                </Link>
+              )}
 
               <div className="w-full mt-6 mb-4 text-gray-400 text-sm font-bold divider">
                 OR
@@ -36,6 +57,7 @@ export default function Dashboard() {
               <label className="w-full text-center mb-3 text-sm font-bold">
                 Get Started with ContentBlocks
               </label>
+
               <Link
                 href="/sign-up"
                 className="block mb-4 p-4 w-full items-center text-sm font-bold text-white rounded-md btn"

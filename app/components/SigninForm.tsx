@@ -3,7 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import "@/app/dashboard.css";
 import { useAtom } from "jotai";
-import { errorAtom } from "../atoms/authAtoms";
+import { emailAtom, errorAtom } from "../atoms/authAtoms";
 
 interface SignInFormProps {
   signInWithEmail: ({
@@ -17,6 +17,7 @@ interface SignInFormProps {
 
 const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
   const [clerkError] = useAtom(errorAtom);
+  const [email] = useAtom(emailAtom);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -40,6 +41,7 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
             className="mb-4 text-sm w-full rounded-md input"
             placeholder="Email address..."
             type="email"
+            value={email}
             required
           />
           <label className="mb-1 text-sm font-bold">Password:</label>

@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { useSignUp } from "@clerk/nextjs";
 import SignupForm from "@/app/components/SignupForm";
 import VerifyForm from "@/app/components/VerifyForm";
-import bcrypt from "bcryptjs";
 import { PasswordHasher } from "@/app/util/PasswordHasher";
 
 import { emailCode, errorAtom, isVerifiedAtom } from "@/app/atoms/authAtoms";
