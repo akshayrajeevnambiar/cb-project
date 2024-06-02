@@ -16,7 +16,7 @@ export default function Dashboard() {
           <>
             <Header placeHolderText="Welcome Back!" />
             <div className="m-3 flex flex-col p-8 bg-white w-[26.25rem] rounded-md border-black border-[1.5px]">
-              <label className="mb-1 text-sm font-bold">Email Address...</label>
+              <label className="mb-1 text-sm font-bold">Email Address:</label>
               <input
                 type="email"
                 placeholder="Email..."

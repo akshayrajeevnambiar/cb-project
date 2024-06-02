@@ -34,7 +34,7 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
             signInWithEmail({ emailAddress: email, password: password });
           }}
         >
-          <label className="mb-1 text-sm font-bold">Email Address...</label>
+          <label className="mb-1 text-sm font-bold">Email Address:</label>
           <input
             name="email"
             className="mb-4 text-sm w-full rounded-md input"
@@ -42,7 +42,7 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
             type="email"
             required
           />
-          <label className="mb-1 text-sm font-bold">Password...</label>
+          <label className="mb-1 text-sm font-bold">Password:</label>
           <input
             name="password"
             className="mb-4 text-sm w-full rounded-md input"
@@ -67,7 +67,7 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
         <p className="text-sm text-center text-black font-medium">
           Don&apos;t have an acccount yet?
           <a
-            className="ml-1 text-sm font-semibold text-indigo-500"
+            className="ml-1 text-sm font-semibold text-indigo-500 link"
             href="/sign-up"
           >
             Sign up here
