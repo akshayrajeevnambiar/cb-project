@@ -7,6 +7,7 @@ import "@/app/dashboard.css";
 import { useAtom } from "jotai";
 import { emailAtom } from "./atoms/authAtoms";
 import { useState } from "react";
+import LandingPage from "./components/LandingPage";
 
 export default function Dashboard() {
   const { isSignedIn, user, isLoaded } = useUser();
@@ -15,8 +16,9 @@ export default function Dashboard() {
 
   return (
     <>
-      {isSignedIn && <h1 className="text-2xl">You are logged in!</h1>}
-      {!isSignedIn ? (
+      {isSignedIn ? (
+        <LandingPage />
+      ) : (
         <>
           <Header placeHolderText="Welcome Back!" />
           <div className="m-3 flex flex-col p-8 bg-white w-[20rem] sm:w-[26.25rem] lg:[28rem] rounded-md border-black border-[1.5px]">
@@ -70,8 +72,6 @@ export default function Dashboard() {
           </div>
           <Footer />
         </>
-      ) : (
-        <UserButton afterSignOutUrl="/" />
       )}
     </>
   );
