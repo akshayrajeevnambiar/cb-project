@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useAuth, useSignIn } from "@clerk/nextjs";
 import type { NextPage } from "next";
 import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
 import { emailAtom } from "../atoms/authAtoms";
 import "@/app/dashboard.css";
+import { PasswordHasher } from "@/app/util/PasswordHasher";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -28,7 +29,7 @@ const ForgotPasswordPage: NextPage = () => {
     router.push("/");
   }
 
-  async function create(e: React.FormEvent) {
+  async function create(e: FormEvent) {
     e.preventDefault();
     await signIn
       ?.create({
@@ -39,19 +40,20 @@ const ForgotPasswordPage: NextPage = () => {
         setSuccessfulCreation(true);
         setError("");
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.error("error", err.errors[0].longMessage);
         setError(err.errors[0].longMessage);
       });
   }
 
-  async function reset(e: React.FormEvent) {
+  async function reset(e: FormEvent) {
     e.preventDefault();
+    const hashedPassword = PasswordHasher(password);
     await signIn
       ?.attemptFirstFactor({
         strategy: "reset_password_email_code",
         code,
-        password,
+        password: hashedPassword,
       })
       .then((result) => {
         if (result.status === "complete") {
@@ -91,7 +93,11 @@ const ForgotPasswordPage: NextPage = () => {
               >
                 Send password reset code
               </button>
-              {error && <p>{error}</p>}
+              {error && (
+                <p className="mb-3 text-sm font-semibold text-red-600">
+                  {error}
+                </p>
+              )}
             </>
           )}
 

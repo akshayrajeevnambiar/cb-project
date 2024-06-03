@@ -19,7 +19,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <main className="container flex flex-col items-center justify-center min-h-screen">
+          <main className="flex flex-col items-center justify-center min-h-screen">
             {children}
           </main>
         </body>

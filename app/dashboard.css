@@ -47,6 +47,16 @@
   padding-left: 12px;
 }
 
+.eye-icon {
+  border: 1.5px solid #3c2b5950;
+}
+
+.eye-icon-focus {
+  border-top: 1.5px solid #8a3dec;
+  border-bottom: 1.5px solid #8a3dec;
+  border-right: 1.5px solid #8a3dec;
+}
+
 .input-error {
   border: 1.5px solid #f62d2acf;
   box-shadow: 2px 2px 0px 0px #dd2a27cf;

@@ -2,7 +2,10 @@ import Header from "./Header";
 import Footer from "./Footer";
 import "@/app/dashboard.css";
 import { useAtom } from "jotai";
-import { emailAtom, errorAtom } from "../atoms/authAtoms";
+import { emailAtom, errorAtom, passwordAtom } from "../atoms/authAtoms";
+import { useState } from "react";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import PasswordComponent from "./PasswordComponent";
 
 interface SignInFormProps {
   signInWithEmail: ({
@@ -17,6 +20,7 @@ interface SignInFormProps {
 const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
   const [clerkError] = useAtom(errorAtom);
   const [email, setEmail] = useAtom(emailAtom);
+  const [passWord] = useAtom(passwordAtom);
 
   return (
     <>
@@ -30,7 +34,8 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
               password: { value: string };
             };
             const email = target.email.value;
-            const password = target.password.value;
+            const password = passWord;
+            console.log(passWord);
             signInWithEmail({ emailAddress: email, password: password });
           }}
         >
@@ -45,13 +50,8 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
             required
           />
           <label className="mb-1 text-sm font-bold">Password:</label>
-          <input
-            name="password"
-            className="mb-4 text-sm w-full rounded-md input"
-            placeholder="Password..."
-            type="password"
-            required
-          />
+          <PasswordComponent />
+
           <h2>
             {clerkError && (
               <p className="mb-3 text-sm font-semibold text-red-600">
@@ -75,15 +75,21 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
             Sign up here
           </a>
         </p>
-        <p className="text-sm text-center text-black font-medium">
-          Forgot your passwords?
+        <div className="flex w-full justify-center">
+          <a
+            className="text-sm font-semibold text-indigo-500 link"
+            href="/forgot-password"
+          >
+            Forgot Your Password?
+          </a>
+          <p className="ml-1 text-sm font-semibold">|</p>
           <a
             className="ml-1 text-sm font-semibold text-indigo-500 link"
-            href="/magic-link"
+            href="https://app.contentblocks.com/login"
           >
             Login via Magic Link!
           </a>
-        </p>
+        </div>
       </div>
       <Footer />
     </>

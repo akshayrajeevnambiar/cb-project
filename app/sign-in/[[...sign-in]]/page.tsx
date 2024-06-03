@@ -4,7 +4,6 @@ import { useSignIn } from "@clerk/nextjs";
 import SigninForm from "@/app/components/SigninForm";
 import { useAtom } from "jotai";
 import { errorAtom } from "@/app/atoms/authAtoms";
-import bcrypt from "bcryptjs";
 import { PasswordHasher } from "@/app/util/PasswordHasher";
 
 const Signin = () => {
