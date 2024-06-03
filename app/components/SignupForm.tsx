@@ -9,7 +9,7 @@ import {
   errorAtom,
   passwordStrengthAtom,
   rePasswordAtom,
-} from "@/app/atoms/authAtoms";
+} from "@/app/atoms/authAtoms"; // Importing atoms from authAtoms file
 
 import { useAtom } from "jotai";
 import { useEffect } from "react";
@@ -25,16 +25,21 @@ interface SignUpFormProps {
     username: string;
     emailAddress: string;
     password: string;
-  }) => void;
+  }) => void; // Props interface for SignUpForm component
 }
 
+/**
+ * SignUpForm Component
+ * Displays a form for signing up
+ * @param signUpWithEmail Function to handle sign up with email, username, and password
+ */
 const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
-  const [username, setUserName] = useAtom(usernameAtom);
-  const [emailAddress, setEmailAddress] = useAtom(emailAtom);
-  const [password] = useAtom(passwordAtom);
-  const [clerkError, setClerkError] = useAtom(errorAtom);
-  const [rePassword, setRePassword] = useAtom(rePasswordAtom);
-  const [passwordStrength] = useAtom(passwordStrengthAtom);
+  const [username, setUserName] = useAtom(usernameAtom); // State for username
+  const [emailAddress, setEmailAddress] = useAtom(emailAtom); // State for email address
+  const [password] = useAtom(passwordAtom); // State for password
+  const [clerkError, setClerkError] = useAtom(errorAtom); // State for clerk error
+  const [rePassword, setRePassword] = useAtom(rePasswordAtom); // State for re-typed password
+  const [passwordStrength] = useAtom(passwordStrengthAtom); // State for password strength
 
   useEffect(() => {
     const userName = document.getElementById("userName");
@@ -62,7 +67,7 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
 
   return (
     <>
-      <Header placeHolderText="Create Your Account" />
+      <Header placeHolderText="Create Your Account" /> {/* Header component */}
       <div className="my-3 flex flex-col p-8 bg-white w-[20rem] sm:w-[26.25rem] lg:w-[30rem] rounded-md border-black border-[1.5px]">
         <form
           onSubmit={(e) => {
@@ -105,7 +110,6 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
             }}
             required
           />
-
           <label className="mb-1 text-xs sm:text-sm lg:text-base font-bold">
             Email Address:
           </label>
@@ -121,7 +125,6 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
             }}
             required
           />
-
           <label className="mb-1 text-xs sm:text-sm lg:text-base font-bold">
             Password:{" "}
             <span
@@ -131,15 +134,13 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
               ({passwordStrength})
             </span>
           </label>
-
-          <PasswordWithStrengthComponent />
-
+          <PasswordWithStrengthComponent />{" "}
+          {/* PasswordWithStrengthComponent */}
           <label className="mb-1 text-xs sm:text-sm lg:text-base font-bold">
             Re-type Password:
           </label>
-
-          <PasswordComponent setPassword={setRePassword} />
-
+          <PasswordComponent setPassword={setRePassword} />{" "}
+          {/* PasswordComponent */}
           <h2>
             {clerkError && (
               <p className="mb-3 text-xs sm:text-sm lg:text-base font-semibold text-red-600">
@@ -147,7 +148,6 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
               </p>
             )}
           </h2>
-
           <button
             className="mb-4 p-4 w-full text-xs sm:text-sm lg:text-base items-center font-bold text-white rounded-md btn"
             type="submit"
@@ -165,7 +165,7 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
           </a>
         </p>
       </div>
-      <Footer />
+      <Footer /> {/* Footer component */}
     </>
   );
 };

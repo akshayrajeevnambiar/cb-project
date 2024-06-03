@@ -15,10 +15,15 @@ interface SignInFormProps {
   }) => void;
 }
 
+/**
+ * SigninForm Component
+ * Displays a form for signing in
+ * @param signInWithEmail Function to handle sign in with email and password
+ */
 const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
-  const [clerkError] = useAtom(errorAtom);
-  const [email, setEmail] = useAtom(emailAtom);
-  const [passWord, setPassword] = useAtom(passwordAtom);
+  const [clerkError] = useAtom(errorAtom); // State for clerk error
+  const [email, setEmail] = useAtom(emailAtom); // State for email
+  const [passWord, setPassword] = useAtom(passwordAtom); // State for password
 
   return (
     <>
@@ -33,7 +38,6 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
             };
             const email = target.email.value;
             const password = passWord;
-            console.log(passWord);
             signInWithEmail({ emailAddress: email, password: password });
           }}
         >
@@ -69,7 +73,7 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
           </button>
         </form>
         <p className="mb-2 text-xs sm:text-sm lg:text-base text-center text-black font-medium">
-          Don&apos;t have an acccount yet?
+          Don&apos;t have an account yet?
           <a
             className="ml-1 text-xs sm:text-sm lg:text-base font-semibold text-indigo-500 link"
             href="/sign-up"

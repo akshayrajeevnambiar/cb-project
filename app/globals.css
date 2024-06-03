@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 main {
+  /* Setting background image */
   background: url("./assets/images/background.png") center center no-repeat;
+  /* Ensuring the background covers the entire element */
   background-size: cover;
 }

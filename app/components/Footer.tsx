@@ -1,5 +1,6 @@
 import React from "react";
 
+// Footer component with optional placeholder text
 const Footer = ({
   placeHolderText = "© 2024 ContentBlocks. All rights reserved.",
 }: {

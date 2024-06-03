@@ -9,15 +9,25 @@ import {
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "@/app/dashboard.css";
 
+/**
+ * PasswordStrengthMeter Component
+ * Displays a password input field with a strength meter
+ */
 const PasswordStrengthMeter = () => {
-  const [password, setPassword] = useAtom(passwordAtom);
-  const [passwordStrength, setPasswordStrength] = useAtom(passwordStrengthAtom);
-  const [clerkError, setClerkError] = useAtom(errorAtom);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [password, setPassword] = useAtom(passwordAtom); // State for password
+  const [passwordStrength, setPasswordStrength] = useAtom(passwordStrengthAtom); // State for password strength
+  const [clerkError, setClerkError] = useAtom(errorAtom); // State for clerk error
+  const [showPassword, setShowPassword] = useState<boolean>(false); // State to toggle password visibility
 
+  // Get the password container and strength meter elements
   const passwordBox = document.getElementById("password-container");
   const strengthMeter = document.getElementById("strength-text");
 
+  /**
+   * Calculate the strength of the password
+   * @param password The password string
+   * @returns The strength of the password
+   */
   const calculateStrength = (password: string) => {
     let strength = 0;
     if (password.length >= 8) strength += 1;
@@ -28,8 +38,9 @@ const PasswordStrengthMeter = () => {
     return strength;
   };
 
-  const strength = calculateStrength(password);
+  const strength = calculateStrength(password); // Calculate password strength
 
+  // Determine strength color based on strength level
   let strengthColor;
   switch (strength) {
     case 0:
@@ -54,9 +65,9 @@ const PasswordStrengthMeter = () => {
 
   const strengthText = ["Very Weak", "Weak", "Fair", "Good", "Strong"][
     strength
-  ];
+  ]; // Map strength level to text
 
-  setPasswordStrength(strengthText);
+  setPasswordStrength(strengthText); // Set password strength in state
 
   return (
     <div
@@ -65,7 +76,7 @@ const PasswordStrengthMeter = () => {
         clerkError && "password-with-strength-error"
       }`}
     >
-      <div className="relative w-ful">
+      <div className="relative w-full">
         <input
           name="password"
           className="text-xs sm:text-sm lg:text-base w-full pr-[2.5rem] rounded-t-md mb-0 input-pass"
@@ -109,4 +120,4 @@ const PasswordStrengthMeter = () => {
   );
 };
 
-export default PasswordStrengthMeter;
+export default PasswordStrengthMeter; // Export PasswordStrengthMeter Component
