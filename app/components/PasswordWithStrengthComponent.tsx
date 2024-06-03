@@ -1,12 +1,13 @@
 // PasswordStrengthMeter.tsx
 import { useAtom } from "jotai";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   errorAtom,
   passwordAtom,
   passwordStrengthAtom,
 } from "../atoms/authAtoms";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import "@/app/dashboard.css";
 
 const PasswordStrengthMeter = () => {
   const [password, setPassword] = useAtom(passwordAtom);
@@ -14,7 +15,7 @@ const PasswordStrengthMeter = () => {
   const [clerkError, setClerkError] = useAtom(errorAtom);
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const passWithStrength = document.getElementById("password-container");
+  const passwordBox = document.getElementById("password-container");
   const strengthMeter = document.getElementById("strength-text");
 
   const calculateStrength = (password: string) => {
@@ -58,28 +59,26 @@ const PasswordStrengthMeter = () => {
   setPasswordStrength(strengthText);
 
   return (
-    <>
-      <div
-        id="password-container "
-        className="relative w-full mb-4 rounded-md password"
-      >
+    <div
+      id="password-container"
+      className={`mb-4 rounded-md password-with-strength ${
+        clerkError && "password-with-strength-error"
+      }`}
+    >
+      <div className="relative w-ful">
         <input
           name="password"
-          id="password"
-          className={`text-xs sm:text-sm lg:text-base w-full pr-[2.5rem] rounded-t-md mb-0 input-pass ${
-            clerkError && "input-error"
-          }`}
+          className="text-xs sm:text-sm lg:text-base w-full pr-[2.5rem] rounded-t-md mb-0 input-pass"
           placeholder="Password..."
           type={showPassword ? "text" : "password"}
           onFocus={(e) => {
-            passWithStrength?.classList.add("password-focus");
+            passwordBox?.classList.add("password-with-strength-focus");
           }}
           onBlur={(e) => {
-            passWithStrength?.classList.remove("password-focus");
             strengthMeter?.classList.add("hidden");
+            passwordBox?.classList.remove("password-with-strength-focus");
           }}
           onChange={(e) => {
-            (e.target as HTMLInputElement).classList.remove("input-error");
             strengthMeter?.classList.remove("hidden");
             setClerkError("");
             setPassword(e.target.value);
@@ -89,9 +88,7 @@ const PasswordStrengthMeter = () => {
         <button
           type="button"
           id="eye-icon"
-          className={`absolute inset-y-0 right-0 flex justify-center items-center text-xs sm:text-sm lg:text-base leading-5 bg-gray-200 rounded-r-md h-full eye-icon ${
-            clerkError && "eye-icon-focus-error "
-          }`}
+          className="absolute inset-y-0 right-0 flex justify-center items-center text-xs sm:text-sm lg:text-base leading-5 bg-gray-200 rounded-r-md h-full eye-icon"
           onClick={(e) => setShowPassword(!showPassword)}
         >
           <i
@@ -100,6 +97,7 @@ const PasswordStrengthMeter = () => {
             }`}
           ></i>
         </button>
+
         <div className="pt-0 mt-0 overflow-hidden h-2 flex rounded-b-md border-[1.5px] border-gray-400 bg-white">
           <div
             style={{ width: `${(strength / 5) * 100}%` }}
@@ -107,7 +105,7 @@ const PasswordStrengthMeter = () => {
           ></div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
