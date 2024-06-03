@@ -3,8 +3,6 @@ import Footer from "./Footer";
 import "@/app/dashboard.css";
 import { useAtom } from "jotai";
 import { emailAtom, errorAtom, passwordAtom } from "../atoms/authAtoms";
-import { useState } from "react";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import PasswordComponent from "./PasswordComponent";
 
 interface SignInFormProps {
@@ -20,7 +18,7 @@ interface SignInFormProps {
 const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
   const [clerkError] = useAtom(errorAtom);
   const [email, setEmail] = useAtom(emailAtom);
-  const [passWord] = useAtom(passwordAtom);
+  const [passWord, setPassword] = useAtom(passwordAtom);
 
   return (
     <>
@@ -39,39 +37,41 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
             signInWithEmail({ emailAddress: email, password: password });
           }}
         >
-          <label className="mb-1 text-xs sm:text-sm font-bold">
+          <label className="mb-1 text-xs sm:text-sm lg:text-base lg:text-base font-bold">
             Email Address:
           </label>
           <input
             name="email"
-            className="mb-4 text-xs sm:text-sm w-full rounded-md input"
+            className="mb-4 text-xs sm:text-sm lg:text-base w-full rounded-md input"
             placeholder="Email address..."
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <label className="mb-1 text-xs sm:text-sm font-bold">Password:</label>
-          <PasswordComponent />
+          <label className="mb-1 text-xs sm:text-sm lg:text-base lg:text-base font-bold">
+            Password:
+          </label>
+          <PasswordComponent setPassword={setPassword} />
 
           <h2>
             {clerkError && (
-              <p className="mb-3 text-xs sm:text-sm font-semibold text-red-600">
+              <p className="mb-3 text-xs sm:text-sm lg:text-base font-semibold text-red-600">
                 {clerkError.toLowerCase()}
               </p>
             )}
           </h2>
           <button
-            className="mb-4 p-4 w-full text-xs sm:text-sm items-center font-bold text-white rounded-md btn"
+            className="mb-4 p-4 w-full text-xs sm:text-sm lg:text-base items-center font-bold text-white rounded-md btn"
             type="submit"
           >
             Sign in
           </button>
         </form>
-        <p className="mb-2 text-xs sm:text-sm text-center text-black font-medium">
+        <p className="mb-2 text-xs sm:text-sm lg:text-base text-center text-black font-medium">
           Don&apos;t have an acccount yet?
           <a
-            className="ml-1 text-xs sm:text-sm font-semibold text-indigo-500 link"
+            className="ml-1 text-xs sm:text-sm lg:text-base font-semibold text-indigo-500 link"
             href="/sign-up"
           >
             Sign up here
@@ -79,13 +79,13 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
         </p>
         <div className="flex w-full justify-evenly">
           <a
-            className="text-center text-xs sm:text-sm font-semibold text-indigo-500 link"
+            className="text-center text-xs sm:text-sm lg:text-base font-semibold text-indigo-500 link"
             href="/forgot-password"
           >
             Forgot Your Password?
           </a>
           <a
-            className="text-center text-xs sm:text-sm font-semibold text-indigo-500 link"
+            className="text-center text-xs sm:text-sm lg:text-base font-semibold text-indigo-500 link"
             href="https://app.contentblocks.com/login"
           >
             Login via Magic Link!

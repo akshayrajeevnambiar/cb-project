@@ -76,25 +76,28 @@ const ForgotPasswordPage: NextPage = () => {
         <form onSubmit={!successfulCreation ? create : reset}>
           {!successfulCreation && (
             <>
-              <label htmlFor="email" className="mb-1 text-sm font-bold">
+              <label
+                htmlFor="email"
+                className="mb-1 text-xs sm:text-sm lg:text-base font-bold"
+              >
                 Email Address:
               </label>
               <input
                 type="email"
                 placeholder="Email Address..."
-                className="mb-4 text-sm w-full rounded-md input"
+                className="mb-4 text-xs sm:text-sm lg:text-base w-full rounded-md input"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
 
               <button
                 type="submit"
-                className="p-4 w-full text-sm items-center font-bold text-white rounded-md btn"
+                className="p-4 w-full text-xs sm:text-sm lg:text-base items-center font-bold text-white rounded-md btn"
               >
                 Send password reset code
               </button>
               {error && (
-                <p className="mb-3 text-sm font-semibold text-red-600">
+                <p className="mb-3 text-xs sm:text-sm lg:text-base font-semibold text-red-600">
                   {error}
                 </p>
               )}
@@ -103,25 +106,31 @@ const ForgotPasswordPage: NextPage = () => {
 
           {successfulCreation && (
             <>
-              <label htmlFor="password" className="mb-1 text-sm font-bold">
+              <label
+                htmlFor="password"
+                className="mb-1 text-xs sm:text-sm lg:text-base font-bold"
+              >
                 New Password:
               </label>
               <input
                 type="password"
-                className="mb-4 text-sm w-full rounded-md input"
+                className="mb-4 text-xs sm:text-sm lg:text-base w-full rounded-md input"
                 placeholder="New Password..."
                 onChange={(e) => setPassword(e.target.value)}
               />
 
-              <label htmlFor="password" className="mb-1 text-sm font-bold">
+              <label
+                htmlFor="password"
+                className="mb-1 text-xs sm:text-sm lg:text-base font-bold"
+              >
                 Password reset code:{" "}
-                <span className="text-sm font-medium italic">
+                <span className="text-xs sm:text-sm lg:text-base font-medium italic">
                   (Check your email inbox)
                 </span>
               </label>
               <input
                 type="text"
-                className="mb-4 text-sm w-full rounded-md input"
+                className="mb-4 text-xs sm:text-sm lg:text-base w-full rounded-md input"
                 placeholder="Password Reset Code..."
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
@@ -129,7 +138,7 @@ const ForgotPasswordPage: NextPage = () => {
 
               <button
                 type="submit"
-                className="p-4 w-full text-sm items-center font-bold text-white rounded-md btn"
+                className="p-4 w-full text-xs sm:text-sm lg:text-base items-center font-bold text-white rounded-md btn"
               >
                 Reset
               </button>

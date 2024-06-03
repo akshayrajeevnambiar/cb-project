@@ -57,6 +57,12 @@
   border-right: 1.5px solid #8a3dec;
 }
 
+.eye-icon-focus-error {
+  border-top: 1.5px solid #f62d2acf;
+  border-bottom: 1.5px solid #f62d2acf;
+  border-right: 1.5px solid #f62d2acf;
+}
+
 .input-error {
   border: 1.5px solid #f62d2acf;
   box-shadow: 2px 2px 0px 0px #dd2a27cf;

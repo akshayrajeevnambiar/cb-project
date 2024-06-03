@@ -8,11 +8,13 @@ import {
   passwordAtom,
   errorAtom,
   passwordStrengthAtom,
+  rePasswordAtom,
 } from "@/app/atoms/authAtoms";
 
 import { useAtom } from "jotai";
 import { useEffect } from "react";
-import PasswordStrengthMeter from "./PasswordStrengthComponent";
+import PasswordWithStrengthComponent from "./PasswordWithStrengthComponent";
+import PasswordComponent from "./PasswordComponent";
 
 interface SignUpFormProps {
   signUpWithEmail: ({
@@ -29,12 +31,10 @@ interface SignUpFormProps {
 const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
   const [username, setUserName] = useAtom(usernameAtom);
   const [emailAddress, setEmailAddress] = useAtom(emailAtom);
-  const [password, setPassword] = useAtom(passwordAtom);
+  const [password] = useAtom(passwordAtom);
   const [clerkError, setClerkError] = useAtom(errorAtom);
-  const [passwordStrength, setPasswordStrength] = useAtom(passwordStrengthAtom);
-
-  const passWithStrength = document.getElementById("password-container");
-  const strengthMeter = document.getElementById("strength-text");
+  const [rePassword, setRePassword] = useAtom(rePasswordAtom);
+  const [passwordStrength] = useAtom(passwordStrengthAtom);
 
   useEffect(() => {
     const userName = document.getElementById("userName");
@@ -70,38 +70,33 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
             const target = e.target as typeof e.target & {
               userName: { value: string };
               email: { value: string };
-              password: { value: string };
-              rePassword: { value: string };
             };
 
             const userName = target.userName;
             const email = target.email;
-            const passWord = target.password;
-            const rePassword = target.rePassword;
 
-            if (passWord.value !== rePassword.value) {
-              (passWord as HTMLInputElement).classList.add("input-error");
-              (rePassword as HTMLInputElement).classList.add("input-error");
-              setClerkError("Passwords do not match");
+            if (password !== rePassword) {
+              setClerkError("Paswords do not match");
               return;
             }
 
             setEmailAddress(email.value);
-            setPassword(passWord.value);
             setUserName(userName.value);
 
             signUpWithEmail({
               username: userName.value,
               emailAddress: email.value,
-              password: passWord.value,
+              password,
             });
           }}
         >
-          <label className="mb-1 text-xs sm:text-sm font-bold">Username:</label>
+          <label className="mb-1 text-xs sm:text-sm lg:text-base font-bold">
+            Username:
+          </label>
           <input
             name="userName"
             id="userName"
-            className="mb-4 text-xs sm:text-sm w-full rounded-md input"
+            className="mb-4 text-xs sm:text-sm lg:text-base w-full rounded-md input"
             placeholder="Username..."
             type="text"
             onChange={(e) => {
@@ -111,13 +106,13 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
             required
           />
 
-          <label className="mb-1 text-xs sm:text-sm font-bold">
+          <label className="mb-1 text-xs sm:text-sm lg:text-base font-bold">
             Email Address:
           </label>
           <input
             name="email"
             id="email"
-            className="mb-4 text-xs sm:text-sm w-full rounded-md input"
+            className="mb-4 text-xs sm:text-sm lg:text-base w-full rounded-md input"
             placeholder="Email address..."
             type="email"
             onChange={(e) => {
@@ -127,74 +122,43 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
             required
           />
 
-          <label className="mb-1 text-xs sm:text-sm font-bold">
+          <label className="mb-1 text-xs sm:text-sm lg:text-base font-bold">
             Password:{" "}
             <span
               id="strength-text"
-              className="text-xs sm:text-sm font-medium italic hidden"
+              className="text-xs sm:text-sm lg:text-base font-medium italic hidden"
             >
               ({passwordStrength})
             </span>
           </label>
-          <div id="password-container" className="mb-4 rounded-md password">
-            <input
-              name="password"
-              className="text-xs sm:text-sm w-full rounded-t-md mb-0 input-pass"
-              placeholder="Password..."
-              id="password"
-              type="password"
-              onFocus={(e) => {
-                passWithStrength?.classList.add("password-focus");
-              }}
-              onBlur={(e) => {
-                passWithStrength?.classList.remove("password-focus");
-                strengthMeter?.classList.add("hidden");
-              }}
-              onChange={(e) => {
-                (e.target as HTMLInputElement).classList.remove("input-error");
-                strengthMeter?.classList.remove("hidden");
-                setClerkError("");
-                setPassword(e.target.value);
-              }}
-              required
-            />
-            <PasswordStrengthMeter password={password} />
-          </div>
 
-          <label className="mb-1 text-xs sm:text-sm font-bold">
+          <PasswordWithStrengthComponent />
+
+          <label className="mb-1 text-xs sm:text-sm lg:text-base font-bold">
             Re-type Password:
           </label>
-          <input
-            name="rePassword"
-            className="mb-4 text-xs sm:text-sm w-full rounded-md input"
-            placeholder="Re-type Password..."
-            type="password"
-            onChange={(e) => {
-              (e.target as HTMLInputElement).classList.remove("input-error");
-              setClerkError("");
-            }}
-            required
-          />
+
+          <PasswordComponent setPassword={setRePassword} />
 
           <h2>
             {clerkError && (
-              <p className="mb-3 text-xs sm:text-sm font-semibold text-red-600">
+              <p className="mb-3 text-xs sm:text-sm lg:text-base font-semibold text-red-600">
                 {clerkError}
               </p>
             )}
           </h2>
 
           <button
-            className="mb-4 p-4 w-full text-xs sm:text-sm items-center font-bold text-white rounded-md btn"
+            className="mb-4 p-4 w-full text-xs sm:text-sm lg:text-base items-center font-bold text-white rounded-md btn"
             type="submit"
           >
             Create an account
           </button>
         </form>
-        <p className="text-xs sm:text-sm text-center text-black font-medium">
+        <p className="text-xs sm:text-sm lg:text-base text-center text-black font-medium">
           * Create Mini Courses, Bridges Pages & much more.
           <a
-            className="ml-1 text-xs sm:text-sm font-semibold text-indigo-500 link"
+            className="ml-1 text-xs sm:text-sm lg:text-base font-semibold text-indigo-500 link"
             href="/sign-in"
           >
             Already a member? Login here.

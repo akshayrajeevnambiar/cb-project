@@ -7,3 +7,4 @@ export const errorAtom = atom<string>("");
 export const emailCode = atom<string>("");
 export const isVerifiedAtom = atom<boolean>(false);
 export const passwordStrengthAtom = atom<string>("");
+export const rePasswordAtom = atom<string>("");

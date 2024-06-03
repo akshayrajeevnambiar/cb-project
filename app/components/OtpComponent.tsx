@@ -47,7 +47,7 @@ const OtpComponent = ({ handleVerify, buttonText }: OtpComponentProps) => {
             type="text"
             maxLength={1}
             value={otp[index] || ""}
-            className="mb-4 text-sm w-full font-bold rounded-md input-otp"
+            className="mb-4 text-xs sm:text-sm lg:text-base w-full font-bold rounded-md input-otp"
             onChange={(e) => handleChange(index, e)}
             onKeyDownCapture={(e) => {
               handleKeyDown(index, e);
@@ -58,7 +58,7 @@ const OtpComponent = ({ handleVerify, buttonText }: OtpComponentProps) => {
         ))}
       </div>
       <button
-        className="p-4 w-full text-sm items-center font-bold text-white rounded-md btn"
+        className="p-4 w-full text-xs sm:text-sm lg:text-base items-center font-bold text-white rounded-md btn"
         type="submit"
       >
         {buttonText}
