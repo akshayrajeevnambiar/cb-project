@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Header from "./Header";
 import Footer from "./Footer";
 import "@/app/dashboard.css";
@@ -17,10 +16,10 @@ interface SignInFormProps {
 
 const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
   const [clerkError] = useAtom(errorAtom);
-  const [email] = useAtom(emailAtom);
+  const [email, setEmail] = useAtom(emailAtom);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <>
       <Header placeHolderText="Welcome Back!" />
       <div className="m-3 flex flex-col p-8 bg-white w-[26.25rem] rounded-md border-black border-[1.5px]">
         <form
@@ -42,6 +41,7 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
             placeholder="Email address..."
             type="email"
             value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <label className="mb-1 text-sm font-bold">Password:</label>
@@ -66,7 +66,7 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
             Sign in
           </button>
         </form>
-        <p className="text-sm text-center text-black font-medium">
+        <p className="mb-2 text-sm text-center text-black font-medium">
           Don&apos;t have an acccount yet?
           <a
             className="ml-1 text-sm font-semibold text-indigo-500 link"
@@ -75,9 +75,18 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
             Sign up here
           </a>
         </p>
+        <p className="text-sm text-center text-black font-medium">
+          Forgot your passwords?
+          <a
+            className="ml-1 text-sm font-semibold text-indigo-500 link"
+            href="/magic-link"
+          >
+            Login via Magic Link!
+          </a>
+        </p>
       </div>
       <Footer />
-    </div>
+    </>
   );
 };
 

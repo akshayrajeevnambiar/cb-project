@@ -19,7 +19,9 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <main className="container">{children}</main>
+          <main className="container flex flex-col items-center justify-center min-h-screen">
+            {children}
+          </main>
         </body>
       </html>
     </ClerkProvider>

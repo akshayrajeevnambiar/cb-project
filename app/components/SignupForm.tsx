@@ -61,7 +61,7 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
   }, [clerkError]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <>
       <Header placeHolderText="Create Your Account" />
       <div className="my-3 flex flex-col p-8 bg-white w-[26.25rem] rounded-md border-black border-[1.5px]">
         <form
@@ -198,7 +198,7 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
         </p>
       </div>
       <Footer />
-    </div>
+    </>
   );
 };
 

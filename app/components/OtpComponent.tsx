@@ -4,9 +4,10 @@ import { emailCode } from "../atoms/authAtoms";
 
 interface OtpComponentProps {
   handleVerify: (e: FormEvent) => void;
+  buttonText: string;
 }
 
-const OtpComponent = ({ handleVerify }: OtpComponentProps) => {
+const OtpComponent = ({ handleVerify, buttonText }: OtpComponentProps) => {
   const [otp, setOtp] = useAtom(emailCode);
   const [currIndex, setCurrIndex] = useState(0);
   const inputRefs = useRef<(HTMLInputElement | null)[]>(Array(6).fill(null));
@@ -60,7 +61,7 @@ const OtpComponent = ({ handleVerify }: OtpComponentProps) => {
         className="p-4 w-full text-sm items-center font-bold text-white rounded-md btn"
         type="submit"
       >
-        Complete sign up
+        {buttonText}
       </button>
     </form>
   );
