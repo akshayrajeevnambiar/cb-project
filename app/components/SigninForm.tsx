@@ -25,7 +25,7 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
   return (
     <>
       <Header placeHolderText="Welcome Back!" />
-      <div className="m-3 flex flex-col p-8 bg-white w-[26.25rem] rounded-md border-black border-[1.5px]">
+      <div className="m-3 flex flex-col p-8 bg-white w-[20rem] sm:w-[26.25rem] lg:w-[30rem] rounded-md border-black border-[1.5px]">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -39,52 +39,53 @@ const SigninForm = ({ signInWithEmail }: SignInFormProps) => {
             signInWithEmail({ emailAddress: email, password: password });
           }}
         >
-          <label className="mb-1 text-sm font-bold">Email Address:</label>
+          <label className="mb-1 text-xs sm:text-sm font-bold">
+            Email Address:
+          </label>
           <input
             name="email"
-            className="mb-4 text-sm w-full rounded-md input"
+            className="mb-4 text-xs sm:text-sm w-full rounded-md input"
             placeholder="Email address..."
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <label className="mb-1 text-sm font-bold">Password:</label>
+          <label className="mb-1 text-xs sm:text-sm font-bold">Password:</label>
           <PasswordComponent />
 
           <h2>
             {clerkError && (
-              <p className="mb-3 text-sm font-semibold text-red-600">
+              <p className="mb-3 text-xs sm:text-sm font-semibold text-red-600">
                 {clerkError.toLowerCase()}
               </p>
             )}
           </h2>
           <button
-            className="mb-4 p-4 w-full text-sm items-center font-bold text-white rounded-md btn"
+            className="mb-4 p-4 w-full text-xs sm:text-sm items-center font-bold text-white rounded-md btn"
             type="submit"
           >
             Sign in
           </button>
         </form>
-        <p className="mb-2 text-sm text-center text-black font-medium">
+        <p className="mb-2 text-xs sm:text-sm text-center text-black font-medium">
           Don&apos;t have an acccount yet?
           <a
-            className="ml-1 text-sm font-semibold text-indigo-500 link"
+            className="ml-1 text-xs sm:text-sm font-semibold text-indigo-500 link"
             href="/sign-up"
           >
             Sign up here
           </a>
         </p>
-        <div className="flex w-full justify-center">
+        <div className="flex w-full justify-evenly">
           <a
-            className="text-sm font-semibold text-indigo-500 link"
+            className="text-center text-xs sm:text-sm font-semibold text-indigo-500 link"
             href="/forgot-password"
           >
             Forgot Your Password?
           </a>
-          <p className="ml-1 text-sm font-semibold">|</p>
           <a
-            className="ml-1 text-sm font-semibold text-indigo-500 link"
+            className="text-center text-xs sm:text-sm font-semibold text-indigo-500 link"
             href="https://app.contentblocks.com/login"
           >
             Login via Magic Link!

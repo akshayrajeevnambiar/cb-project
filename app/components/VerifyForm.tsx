@@ -15,8 +15,8 @@ const VerifyForm = ({ handleVerify }: VerifyFormProps) => {
   return (
     <>
       <Header placeHolderText="Verification Code" />
-      <div className="my-3 flex flex-col p-8 bg-white w-[26.25rem] rounded-md border-black border-[1.5px]">
-        <div className="mb-2 text-sm text-center ">
+      <div className="my-3 flex flex-col p-8 bg-white w-[20rem] sm:w-[26.25rem] lg:w-[30rem] rounded-md border-black border-[1.5px]">
+        <div className="mb-2 text-xs sm:text-sm text-center ">
           Please enter the 6 digit verification code sent to your email.
         </div>
         <OtpComponent

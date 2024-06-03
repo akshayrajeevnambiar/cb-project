@@ -63,7 +63,7 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
   return (
     <>
       <Header placeHolderText="Create Your Account" />
-      <div className="my-3 flex flex-col p-8 bg-white w-[26.25rem] rounded-md border-black border-[1.5px]">
+      <div className="my-3 flex flex-col p-8 bg-white w-[20rem] sm:w-[26.25rem] lg:w-[30rem] rounded-md border-black border-[1.5px]">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -97,11 +97,11 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
             });
           }}
         >
-          <label className="mb-1 text-sm font-bold">Username:</label>
+          <label className="mb-1 text-xs sm:text-sm font-bold">Username:</label>
           <input
             name="userName"
             id="userName"
-            className="mb-4 text-sm w-full rounded-md input"
+            className="mb-4 text-xs sm:text-sm w-full rounded-md input"
             placeholder="Username..."
             type="text"
             onChange={(e) => {
@@ -111,11 +111,13 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
             required
           />
 
-          <label className="mb-1 text-sm font-bold">Email Address:</label>
+          <label className="mb-1 text-xs sm:text-sm font-bold">
+            Email Address:
+          </label>
           <input
             name="email"
             id="email"
-            className="mb-4 text-sm w-full rounded-md input"
+            className="mb-4 text-xs sm:text-sm w-full rounded-md input"
             placeholder="Email address..."
             type="email"
             onChange={(e) => {
@@ -125,11 +127,11 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
             required
           />
 
-          <label className="mb-1 text-sm font-bold">
+          <label className="mb-1 text-xs sm:text-sm font-bold">
             Password:{" "}
             <span
               id="strength-text"
-              className="text-sm font-medium italic hidden"
+              className="text-xs sm:text-sm font-medium italic hidden"
             >
               ({passwordStrength})
             </span>
@@ -137,7 +139,7 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
           <div id="password-container" className="mb-4 rounded-md password">
             <input
               name="password"
-              className="text-sm w-full rounded-t-md mb-0 input-pass"
+              className="text-xs sm:text-sm w-full rounded-t-md mb-0 input-pass"
               placeholder="Password..."
               id="password"
               type="password"
@@ -159,10 +161,12 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
             <PasswordStrengthMeter password={password} />
           </div>
 
-          <label className="mb-1 text-sm font-bold">Re-type Password:</label>
+          <label className="mb-1 text-xs sm:text-sm font-bold">
+            Re-type Password:
+          </label>
           <input
             name="rePassword"
-            className="mb-4 text-sm w-full rounded-md input"
+            className="mb-4 text-xs sm:text-sm w-full rounded-md input"
             placeholder="Re-type Password..."
             type="password"
             onChange={(e) => {
@@ -174,23 +178,23 @@ const SignupForm = ({ signUpWithEmail }: SignUpFormProps) => {
 
           <h2>
             {clerkError && (
-              <p className="mb-3 text-sm font-semibold text-red-600">
+              <p className="mb-3 text-xs sm:text-sm font-semibold text-red-600">
                 {clerkError}
               </p>
             )}
           </h2>
 
           <button
-            className="mb-4 p-4 w-full text-sm items-center font-bold text-white rounded-md btn"
+            className="mb-4 p-4 w-full text-xs sm:text-sm items-center font-bold text-white rounded-md btn"
             type="submit"
           >
             Create an account
           </button>
         </form>
-        <p className="text-sm text-center text-black font-medium">
+        <p className="text-xs sm:text-sm text-center text-black font-medium">
           * Create Mini Courses, Bridges Pages & much more.
           <a
-            className="ml-1 text-sm font-semibold text-indigo-500 link"
+            className="ml-1 text-xs sm:text-sm font-semibold text-indigo-500 link"
             href="/sign-in"
           >
             Already a member? Login here.
