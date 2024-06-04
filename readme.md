@@ -11,7 +11,8 @@ This project implements an alternative login component for ContentBlocks using a
 4. [Usage](#usage)
 5. [Components](#components)
 6. [Screenshots](#screenshots)
-7. [Contributing](#contributing)
+7. [Challenges Faced](#challenges-faced)
+8. [Contributing](#contributing)
 
 ## Features
 
