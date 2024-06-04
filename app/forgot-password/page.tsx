@@ -4,16 +4,17 @@ import { useAuth, useSignIn } from "@clerk/nextjs";
 import type { NextPage } from "next";
 import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
-import { emailAtom } from "../atoms/authAtoms";
+import { emailAtom, passwordAtom } from "../atoms/authAtoms";
 import "@/app/dashboard.css";
 import { PasswordHasher } from "@/app/util/PasswordHasher";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import PasswordComponent from "../components/PasswordComponent";
 
 // ForgotPasswordPage component
 const ForgotPasswordPage: NextPage = () => {
   const [email, setEmail] = useAtom(emailAtom); // State variable for email
-  const [password, setPassword] = useState(""); // State variable for password
+  const [password, setPassword] = useAtom(passwordAtom); // State variable for password
   const [code, setCode] = useState(""); // State variable for code
   const [successfulCreation, setSuccessfulCreation] = useState(false); // State variable for successful creation
   const [error, setError] = useState(""); // State variable for error message
@@ -126,12 +127,7 @@ const ForgotPasswordPage: NextPage = () => {
               >
                 New Password:
               </label>
-              <input
-                type="password"
-                className="mb-4 text-xs sm:text-sm lg:text-base w-full rounded-md input"
-                placeholder="New Password..."
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <PasswordComponent setPassword={setPassword} />
 
               <label
                 htmlFor="password"
@@ -143,7 +139,7 @@ const ForgotPasswordPage: NextPage = () => {
                 </span>
               </label>
               <input
-                type="text"
+                type="password"
                 className="mb-4 text-xs sm:text-sm lg:text-base w-full rounded-md input"
                 placeholder="Password Reset Code..."
                 value={code}
